@@ -24,15 +24,25 @@ http.createServer(function(req, res) {
   }
 
   if(query.s == 'nyaa' || query.s == 'sukebei' || query.s == 'tokyotosho' || query.s == 'leopard' || query.s == 'horrible') {
-    if(query.s == 'nyaa') xmlurl = nyaa + "&cats=" + query.c + "&term=" + query.i;
-    else if(query.s == 'sukebei') xmlurl = sukebei + "&cats=" + query.c + "&term=" + query.i;
+    if(query.s == 'nyaa' || query.s == 'sukebei') {
+      if(query.s == 'nyaa') xmlurl = nyaa;
+      else if(query.s == 'sukebei') xmlurl = sukebei;
+      if(query.c) xmlurl += "&cats=" + query.c;
+      if(query.i) xmlurl += "&term=" + query.i;
+    }
     else if(query.s == 'tokyotosho') {
       xmlurl = tokyotosho;
       if(query.c) xmlurl += "filter=" + query.c;
       if(query.i) xmlurl += "&term=" + query.i;
     }
-    else if(query.s == 'leopard') xmlurl = leopard + "search=" + query.i;
-    else if(query.s == 'horrible') xmlurl = horrible + "res=" + query.c;
+    else if(query.s == 'leopard') {
+      xmlurl = leopard;
+      if(query.i) xmlurl += "search=" + query.i;
+    }
+    else if(query.s == 'horrible') {
+      xmlurl = horrible;
+      if(query.c) xmlurl += "res=" + query.c;
+    }
 
     request(xmlurl, function(error, response, html){
       if (error) {throw error};
