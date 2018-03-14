@@ -15,7 +15,7 @@ var port = process.env.PORT || 4444;
 http.createServer(function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Request-Method', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTION');
 	res.setHeader('Access-Control-Allow-Headers', '*');
 
   var link = req.url;
