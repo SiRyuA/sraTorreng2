@@ -13,6 +13,11 @@ var horrible = "http://horriblesubs.info/rss.php?"; // all, 1080, 720, sd
 var port = process.env.PORT || 4444;
 
 http.createServer(function(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Request-Method', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET');
+	res.setHeader('Access-Control-Allow-Headers', '*');
+
   var link = req.url;
   var query = url.parse(link, true).query;
 
