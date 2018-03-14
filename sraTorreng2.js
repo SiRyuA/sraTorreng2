@@ -10,6 +10,7 @@ var sukebei = 'https://sukebei.nyaa.si/?page=rss';
 var tokyotosho = 'https://www.tokyotosho.info/rss.php?';
 var leopard = "http://leopard-raws.org/rss.php?";
 var horrible = "http://horriblesubs.info/rss.php?"; // all, 1080, 720, sd
+var port = process.env.PORT || 4444;
 
 http.createServer(function(req, res) {
   var link = req.url;
@@ -156,4 +157,4 @@ http.createServer(function(req, res) {
     res.write("Site Not Found.", "utf-8");
     res.end();
   }
-}).listen(4444);
+}).listen(port);
