@@ -18,19 +18,21 @@ var port = process.env.PORT || 4444;
 http.createServer(function(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Request-Method', '*');
-	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTION');
+	//res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTION');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, OPTION');
 	res.setHeader('Access-Control-Allow-Headers', '*');
 
   var link = req.url;
   var query = url.parse(link, true).query;
 
+  /*
   if(req.method == 'POST') {
     req.on('data', function(get) {
       var data = querystring.parse(get.toString());
       query = data;
     })
   }
-
+  */
   if(query.s == 'nyaa' || query.s == 'sukebei' || query.s == 'tokyotosho' || query.s == 'leopard' || query.s == 'horrible' || query.s == 'tfreeca') {
     if(query.s == 'nyaa' || query.s == 'sukebei') {
       if(query.s == 'nyaa') xmlurl = nyaa;
@@ -64,6 +66,9 @@ http.createServer(function(req, res) {
       else xmlurl += "&b_id=tmovie";
       if(query.i) xmlurl += "&sc=" + query.i + "&x=0&y=0";
     }
+
+    xmlurl = encodeURI(xmlurl);
+    console.log(xmlurl);
 
     request(xmlurl, function(error, response, html){
       if (error) {throw error};
