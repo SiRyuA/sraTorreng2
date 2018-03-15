@@ -54,14 +54,14 @@ http.createServer(function(req, res) {
     }
     else if(query.s == 'tfreeca') {
       xmlurl = tfreeca + "board.php?&mode=list";
-      if(query.c == "v") xmlurl += "&b_id=" + query.c;
+      if(query.c == "tmovie") xmlurl += "&b_id=" + query.c;
       else if(query.c == "tdrama") xmlurl += "&b_id=" + query.c;
       else if(query.c == "tent") xmlurl += "&b_id=" + query.c;
       else if(query.c == "tv") xmlurl += "&b_id=" + query.c;
       else if(query.c == "tani") xmlurl += "&b_id=" + query.c;
       else if(query.c == "tmusic") xmlurl += "&b_id=" + query.c;
       else if(query.c == "util") xmlurl += "&b_id=" + query.c;
-      else xmlurl += "&b_id=tdrama";
+      else xmlurl += "&b_id=tmovie";
       if(query.i) xmlurl += "&sc=" + query.i;
     }
 
