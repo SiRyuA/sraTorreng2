@@ -62,7 +62,7 @@ http.createServer(function(req, res) {
       else if(query.c == "tmusic") xmlurl += "&b_id=" + query.c;
       else if(query.c == "util") xmlurl += "&b_id=" + query.c;
       else xmlurl += "&b_id=tmovie";
-      if(query.i) xmlurl += "&sc=" + query.i;
+      if(query.i) xmlurl += "&sc=" + query.i + "&x=0&y=0";
     }
 
     request(xmlurl, function(error, response, html){
