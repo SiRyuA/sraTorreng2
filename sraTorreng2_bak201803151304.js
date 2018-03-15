@@ -2,7 +2,6 @@ var http = require('http');
 var url = require('url');
 var request = require('request');
 var cheerio = require('cheerio');
-var btoa = require('btoa');
 var parseString = require('xml2js').parseString;
 
 var xmlurl = '';
@@ -11,8 +10,6 @@ var sukebei = 'https://sukebei.nyaa.si/?page=rss';
 var tokyotosho = 'https://www.tokyotosho.info/rss.php?';
 var leopard = "http://leopard-raws.org/rss.php?";
 var horrible = "http://horriblesubs.info/rss.php?"; // all, 1080, 720, sd
-var tfreeca = "http://www.tfreeca22.com/";
-var tfreeca_download = "http://file.filetender.com/Execdownload.php?link=";
 var port = process.env.PORT || 4444;
 
 http.createServer(function(req, res) {
@@ -31,7 +28,7 @@ http.createServer(function(req, res) {
     })
   }
 
-  if(query.s == 'nyaa' || query.s == 'sukebei' || query.s == 'tokyotosho' || query.s == 'leopard' || query.s == 'horrible' || query.s == 'tfreeca') {
+  if(query.s == 'nyaa' || query.s == 'sukebei' || query.s == 'tokyotosho' || query.s == 'leopard' || query.s == 'horrible') {
     if(query.s == 'nyaa' || query.s == 'sukebei') {
       if(query.s == 'nyaa') xmlurl = nyaa;
       else if(query.s == 'sukebei') xmlurl = sukebei;
@@ -50,25 +47,13 @@ http.createServer(function(req, res) {
     else if(query.s == 'horrible') {
       xmlurl = horrible;
       if(query.c) xmlurl += "res=" + query.c;
-      else xmlurl += "res=all"
-    }
-    else if(query.s == 'tfreeca') {
-      xmlurl = tfreeca + "board.php?&mode=list";
-      if(query.c == "tmovie") xmlurl += "&b_id=" + query.c;
-      else if(query.c == "tdrama") xmlurl += "&b_id=" + query.c;
-      else if(query.c == "tent") xmlurl += "&b_id=" + query.c;
-      else if(query.c == "tv") xmlurl += "&b_id=" + query.c;
-      else if(query.c == "tani") xmlurl += "&b_id=" + query.c;
-      else if(query.c == "tmusic") xmlurl += "&b_id=" + query.c;
-      else if(query.c == "util") xmlurl += "&b_id=" + query.c;
-      else xmlurl += "&b_id=" + query.c;
-      if(query.i) xmlurl += "&sc=" + query.i;
     }
 
     request(xmlurl, function(error, response, html){
       if (error) {throw error};
       var item = new Array;
       var time = new Date();
+
 
       if(query.s == 'nyaa' || query.s == 'sukebei') {
         parseString(html, function(err, result) {
@@ -168,46 +153,6 @@ http.createServer(function(req, res) {
           console.log("["+time+"] Get Horrible");
           res.end(item);
         });
-      }
-
-      else if(query.s == 'tfreeca') {
-        res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
-        var $ = cheerio.load(html);
-        $('table.b_list tr td.subject div.list_subject a').each(function() {
-          var filter = RegExp('view', 'g');
-          var check = $(this).attr('href');
-
-          if(filter.test(check)) {
-            var title = $(this).text();
-            var href = $(this).attr('href');
-
-            var idcode = href.split('&id=');
-            idcode = idcode[1].split('&page=');
-            idcode = idcode[0];
-
-            var download_code = query.c + "|" + idcode + "|";
-            var download_link = tfreeca_download + btoa(download_code);
-
-            var cate = "";
-            if(query.c == "tmovie") cate = "Movie";
-            if(query.c == "tdrama") cate = "Drama";
-            if(query.c == "tent") cate = "Entertainment";
-            if(query.c == "tv") cate = "TV";
-            if(query.c == "tani") cate = "Animation";
-            if(query.c == "tmusic") cate = "Music";
-            if(query.c == "util") cate = "Utility";
-
-            var data = {
-              "title" : title,
-              "torrent" : download_link,
-              "category" : cate
-            };
-            item.push(data);
-          }
-        });
-        item = JSON.stringify(item);
-        console.log("["+time+"] Get Tfreeca");
-        res.end(item);
       }
 
 
