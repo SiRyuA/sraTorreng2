@@ -51,13 +51,12 @@ http.createServer(function(req, res) {
 
     request(xmlurl, function(error, response, html){
       if (error) {throw error};
+      var item = new Array;
+      var time = new Date();
 
 
       if(query.s == 'nyaa' || query.s == 'sukebei') {
         parseString(html, function(err, result) {
-          var item = new Array;
-          var time = new Date();
-
           res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
           for(var i=0;i<result.rss.channel[0].item.length;i++) {
             var data = {
@@ -83,9 +82,6 @@ http.createServer(function(req, res) {
 
       else if(query.s == 'tokyotosho') {
         parseString(html, function(err, result) {
-          var item = new Array;
-          var time = new Date();
-
           res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
           for(var i=0;i<result.rss.channel[0].item.length;i++) {
             var desc = result.rss.channel[0].item[0]['description'][0].toString();
@@ -125,9 +121,6 @@ http.createServer(function(req, res) {
 
       else if(query.s == 'leopard') {
         parseString(html, function(err, result) {
-          var item = new Array;
-          var time = new Date();
-
           res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
 
           for(var i=0;i<result.rss.channel[0].item.length;i++) {
@@ -146,9 +139,6 @@ http.createServer(function(req, res) {
 
       else if(query.s == 'horrible') {
         parseString(html, function(err, result) {
-          var item = new Array;
-          var time = new Date();
-
           res.writeHead(200, {'Content-Type': 'text/html; charset=utf-8'});
 
           for(var i=0;i<result.rss.channel[0].item.length;i++) {
