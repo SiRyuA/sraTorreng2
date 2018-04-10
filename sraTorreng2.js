@@ -73,7 +73,6 @@ http.createServer(function(req, res) {
     request(xmlurl, function(error, response, html){
       if (error) {throw error};
       var item = new Array;
-	  var apps = new Array;
       var time = new Date();
 
       if(query.s == 'nyaa' || query.s == 'sukebei') {
@@ -94,15 +93,10 @@ http.createServer(function(req, res) {
             };
             item.push(data);
           }
-		  if(query.a == "a") {
-			  apps["result"].push(item);
-			  apps = JSON.stringify(apps);
-          }
-		  else item = JSON.stringify(item);
+          item = JSON.stringify(item);
           if(query.s == 'nyaa') console.log("["+time+"] Get Nyaa");
           else console.log("["+time+"] Get Sukebei");
-		  if(query.a == "a") res.end(apps);
-		  else res.end(item);
+          res.end(item);
         });
       }
 
