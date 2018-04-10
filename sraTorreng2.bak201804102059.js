@@ -68,6 +68,7 @@ http.createServer(function(req, res) {
     }
 
     xmlurl = encodeURI(xmlurl);
+    console.log(xmlurl);
 
     request(xmlurl, function(error, response, html){
       if (error) {throw error};
@@ -92,14 +93,8 @@ http.createServer(function(req, res) {
             };
             item.push(data);
           }
-          if(query.a == "a") {
-            var List = {"torreng":item};
-            List = JSON.stringify(List);
-            res.end(List);
-          } else {
-            item = JSON.stringify(item);
-            res.end(item);
-          }
+          item = JSON.stringify(item);
+          res.end(item);
         });
       }
 
@@ -136,14 +131,8 @@ http.createServer(function(req, res) {
             }
             item.push(data);
           }
-          if(query.a == "a") {
-            var List = {"torreng":item};
-            List = JSON.stringify(List);
-            res.end(List);
-          } else {
-            item = JSON.stringify(item);
-            res.end(item);
-          }
+          item = JSON.stringify(item);
+          res.end(item);
         });
       }
 
@@ -159,14 +148,8 @@ http.createServer(function(req, res) {
             }
             item.push(data);
           }
-          if(query.a == "a") {
-            var List = {"torreng":item};
-            List = JSON.stringify(List);
-            res.end(List);
-          } else {
-            item = JSON.stringify(item);
-            res.end(item);
-          }
+          item = JSON.stringify(item);
+          res.end(item);
         });
       }
 
@@ -182,14 +165,8 @@ http.createServer(function(req, res) {
             }
             item.push(data);
           }
-          if(query.a == "a") {
-            var List = {"torreng":item};
-            List = JSON.stringify(List);
-            res.end(List);
-          } else {
-            item = JSON.stringify(item);
-            res.end(item);
-          }
+          item = JSON.stringify(item);
+          res.end(item);
         });
       }
 
@@ -228,14 +205,8 @@ http.createServer(function(req, res) {
             item.push(data);
           }
         });
-        if(query.a == "a") {
-          var List = {"torreng":item};
-          List = JSON.stringify(List);
-          res.end(List);
-        } else {
-          item = JSON.stringify(item);
-          res.end(item);
-        }
+        item = JSON.stringify(item);
+        res.end(item);
       }
 
 
