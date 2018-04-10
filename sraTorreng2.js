@@ -94,8 +94,11 @@ http.createServer(function(req, res) {
             };
             item.push(data);
           }
-          item = JSON.stringify(item);
-		  if(query.a == "a") apps["result"].push(item);
+		  if(query.a == "a") {
+			  apps["result"].push(item);
+			  apps = JSON.stringify(apps);
+          }
+		  else item = JSON.stringify(item);
           if(query.s == 'nyaa') console.log("["+time+"] Get Nyaa");
           else console.log("["+time+"] Get Sukebei");
 		  if(query.a == "a") res.end(apps);
