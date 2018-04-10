@@ -73,7 +73,6 @@ http.createServer(function(req, res) {
     request(xmlurl, function(error, response, html){
       if (error) {throw error};
       var item = new Array;
-	  var aout = new Array;
       var time = new Date();
 
       if(query.s == 'nyaa' || query.s == 'sukebei') {
@@ -95,11 +94,9 @@ http.createServer(function(req, res) {
             item.push(data);
           }
           item = JSON.stringify(item);
-		  aout["result"] = JSON.stringify(item);
           if(query.s == 'nyaa') console.log("["+time+"] Get Nyaa");
           else console.log("["+time+"] Get Sukebei");
-		  if(query.a == "y") res.end(aout);
-		  else res.end(item);
+          res.end(item);
         });
       }
 
